@@ -1,0 +1,157 @@
+﻿drop table food_history;
+drop table food_board;
+drop table food_suggest;
+drop table food_notice;
+drop table food_qna;
+drop table food_admin;
+drop table food_client;
+drop table food;
+
+create table food(
+no integer primary key,
+groups varchar(20) not null,
+name text not null,
+once varchar(5) not null,
+kcal varchar(10) not null,
+tan varchar(10) not null,
+dan varchar(10) not null,
+gi varchar(10) not null,
+dang varchar(10) not null,
+na varchar(10) not null,
+col varchar(10) not null,
+powha varchar(10) not null,
+trans varchar(10) not null,
+jae text not null) charset=utf8;
+
+LOAD DATA LOCAL INFILE "C:/work/food_final.csv" INTO TABLE project1.food FIELDS TERMINATED BY "," IGNORE 1 LINES;
+select * from food limit 1,10;
+
+
+create table food_client(
+id      VARCHAR(10) primary key, -- 아이디
+passwd  VARCHAR(20) NOT NULL,    -- 비밀번호
+name    VARCHAR(20) NOT NULL,    -- 이름
+age     INTEGER     NULL,        -- 나이
+gen     CHAR(1)     NULL,        -- 성별
+height  INTEGER     NULL,        -- 키
+weight  INTEGER     NULL,        -- 몸무게
+purpose VARCHAR(20) NULL,        -- 목적
+active  CHAR(1)     NULL,        -- 활동량
+hate1   VARCHAR(20) NULL,        -- 제외음식1
+hate2   VARCHAR(20) NULL,        -- 제외음식2
+hate3   VARCHAR(20) NULL,        -- 제외음식3
+hate4   VARCHAR(20) NULL,        -- 제외음식4
+hate5   VARCHAR(20) NULL         -- 제외음식5
+)charset=utf8;
+
+insert into food_client(id,passwd,name) 
+values('abc1','123','김회원');
+
+
+create table food_admin(
+id     VARCHAR(10) primary key, -- 아이디
+passwd VARCHAR(20) NOT NULL,    -- 비밀번호
+name   VARCHAR(10) NOT NULL     -- 이름
+)charset=utf8;
+
+insert into food_admin values('admin','123','관리자');
+
+
+create table food_qna (
+no      INTEGER     auto_increment primary key, -- 번호
+id      VARCHAR(10) NOT NULL,    -- 작성자_아이디
+type    CHAR(1)     NULL,        -- 작성자_종류
+title   VARCHAR(50) NULL,        -- 글제목
+content TEXT        NULL,        -- 본문
+bdate   DATETIME   NULL,        -- 작성날짜
+bip     VARCHAR(20) NULL,        -- bip
+readcnt INT(3)      NULL default 0,        -- readcnt
+gnum    INT(5)      NULL,        -- gnum
+onum    INT(3)      NULL,        -- onum
+nested  INT(3)      NULL         -- nested
+)charset=utf8;
+
+
+insert into food_qna values(1, 'abc1', 'C', '안녕1', '내용 테스트', now(), '192.168.0.21',
+3, 1, 0, 0);
+insert into food_qna values(2, 'abc1', 'C', '안녕2', '내용 테스트', now(), '192.168.0.21',
+0, 2, 0, 0);
+insert into food_qna values(3, 'abc1', 'C', '안녕3', '내용 테스트', now(), '192.168.0.21',
+0, 3, 0, 0);
+insert into food_qna values(4, 'abc1', 'C', '안녕4', '내용 테스트', now(), '192.168.0.21',
+1, 4, 0, 0);
+
+
+CREATE TABLE food_notice (
+no       INTEGER     auto_increment primary key, -- 글번호
+admin_id VARCHAR(10) NOT NULL,    -- 관리자_아이디
+title    VARCHAR(50) NOT NULL,    -- 글제목
+content  TEXT        NOT NULL,    -- 본문
+date     DATETIME    NOT NULL,    -- 작성날짜
+bip      VARCHAR(20) NULL,        -- bip
+readcnt  INT(3)      NULL default 0,        -- readcnt
+gnum     INT(5)      NULL,        -- gnum
+onum     INT(3)      NULL,        -- onum
+nested   INT(3)      NULL,        -- nested
+constraint admin_id_fk1 foreign key(admin_id) 
+references food_admin(id)
+)charset=utf8;
+
+
+insert into food_notice values(1, 'admin', '공지1', '내용 테스트', now(), '192.168.0.21',
+3, 1, 0, 0);
+insert into food_notice values(2, 'admin', '공지2', '내용 테스트', now(), '192.168.0.21',
+1, 2, 0, 0);
+insert into food_notice values(3, 'admin', '공지3', '내용 테스트', now(), '192.168.0.21',
+0, 3, 0, 0);
+insert into food_notice values(4, 'admin', '공지4', '내용 테스트', now(), '192.168.0.21',
+0, 4, 0, 0);
+
+
+CREATE TABLE food_suggest (
+no INTEGER auto_increment primary key, -- 번호
+food_no   INTEGER     NOT NULL,   -- 푸드_번호
+client_id VARCHAR(10) NOT NULL,   -- 회원_아이디
+date      DATETIME    NOT NULL,   -- 날짜
+gubun     CHAR(1)     NOT NULL,   -- 구분
+constraint food_no_fk1 foreign key(food_no) 
+references food(no),
+constraint client_id_fk1 foreign key(client_id) 
+references food_client(id)
+)charset=utf8;
+
+insert into food_suggest
+(food_no,client_id,date,gubun)
+values 
+(1,'abc1',now(),'T');
+
+insert into food_suggest
+(food_no,client_id,date,gubun)
+values 
+(2,'abc1',now(),'F');
+
+insert into food_suggest
+(food_no,client_id,date,gubun)
+values 
+(4,'abc1',now(),'T');
+
+select * from food_suggest where client_id = 'abc1';
+
+
+CREATE TABLE food_board (
+no INTEGER auto_increment primary key, -- 번호
+food_no   INTEGER      NOT NULL,  -- 푸드_번호
+client_id VARCHAR(10)  NOT NULL,  -- 회원_아이디
+content   VARCHAR(255) NOT NULL,  -- 본문
+date      DATE         NOT NULL,  -- 작성날짜
+constraint food_no_fk2 foreign key(food_no) 
+references food(no),
+constraint client_id_fk2 foreign key(client_id) 
+references food_client(id)
+)charset=utf8;
+
+insert into food_board
+(food_no,client_id,content,date) 
+values 
+(1,'abc1','내용 없음. DB 테스트용 자료임.','2018-11-01');
+

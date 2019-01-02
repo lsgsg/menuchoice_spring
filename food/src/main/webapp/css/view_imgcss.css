@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0; padding:0;}
+li{list-style:none;}
+a{text-decoration: none; color:#333;}
+img{width:100%; height:100%;border:0}
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+html, body{font-family: "Nanum Gothic", sans-serif; height:100%; width:100%;
+
+}
+body{}
+header{width:100vw; height:auto; position:fixed; top:3vh; right:4vh; z-index:99}
+#logo{width:15vh; position:fixed; top:3.4vh; left:5.8vw;z-index: 99}
+#logo>a{width:100%; height:100%; display:block;}
+footer { color:#9ccd62; font-size:0.8vw; width:100vw; height:10vh; 
+ float:left;   position:relative; margin:1vh 0;}
+ footer>p{position:absolute; top:50%; left:50%; width:20vw; height:1.5vh; margin-left:-10vw; margin-top:-0.75vh}
+ 
+#col2{
+	width:62.5vw; 
+	height:auto; 
+	margin:20vh auto;
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+	border-radius:1vw 1vw 0 0;
+	}
+#view_title{width:100%; height:auto;}
+#view_title>div{float:left;}
+#view_title1{
+	width:100%; 
+	height:15vh; 
+	font-weight:500; 
+	font-size:1.5vw; 
+	color:#666; 
+	text-align:center;
+	line-height:15vh;
+	}
+
+#view_title2{width:100%; height:7vh;}
+#view_title2>ul{width:30%; height:100%; float:right; margin-right:5vw}
+#view_title2>ul>li{
+	float:right;
+	margin:0vh 0.3vh;
+	padding:0.3vh 1vh; 
+	 background-color:rgba(204,203,205,0.6);
+	 border-radius:0.6vw;
+	 color:#fff;
+	
+	 }
+
+#view_title2>ul>#itemli1{
+	padding:1.1vh 1vh; 
+	}
+#view_title2>ul>#itemli3{
+	padding:1.1vh 1vh; 
+	}	 
+#itemli2>img{width:22px; height:17.5px; float:left; margin:1vh 1vh;/*32 26*/}
+#itemli2>p{float:left;margin:0.85vh 1vh; font-size:0.84vw;}
+.view_cclear{width:100%; height:5vh;}
+#view_content1{width:100%; height:auto;}
+#view_content{width:85%; height:auto; margin:0 auto;}
+
+#item_date{width:85%; height:auto; margin:0 auto; text-align:right; color:#bbb;}
+#view_button{width:85%; height:auto; margin:0 auto;}
+#view_button>a{
+	display:block;
+	padding:1.1vh 1.6vh; 
+	float:right;
+	margin:3vh 0.3vh;
+	 background-color:rgba(204,203,205,0.6);
+	 border-radius:0.6vw;
+	 color:#fff;}
+.clear{width:100%; height:15vh;}

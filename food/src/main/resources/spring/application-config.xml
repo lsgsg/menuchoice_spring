@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- Uncomment and add your base-package here:
+         <context:component-scan
+            base-package="org.springframework.samples.service"/>  -->
+            
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:pack/food/mybatis/db.properties</value>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${driver}" />
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+	</bean>
+	
+	
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- SqlSessionFactoryBean은 SqlSessionFactory(SangpumImpl에서 씀)의 child -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.hong.LoginClientInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.hong.ClientModifyInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.hong.ClientJoinInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.matt.SuggestInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.seul.SurveyAnnoInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.seul.AjaxAnnoInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.jeong.FoodAnnoInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.food.model.min.QnaInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	
+</beans>
